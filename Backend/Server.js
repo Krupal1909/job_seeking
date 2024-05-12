@@ -3,12 +3,13 @@ const express = require("express");
 const connect = require("./Database/ConnectDb");
 const cloudinary = require("cloudinary");
 const cors = require("cors");
+
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
-const userRouter = require('./Routes/UserRouter')
-const applicationRouter = require('./Routes/applicationRouter')
-const jobRouter = require('./Routes/jobRouter')
-const ErrorMiddleware = require('./Middleware/error')
+const userRouter = require("./Routes/UserRouter");
+const applicationRouter = require("./Routes/applicationRouter");
+const jobRouter = require("./Routes/jobRouter");
+const ErrorMiddleware = require("./Middleware/error");
 const app = express();
 
 app.use(
@@ -32,11 +33,13 @@ app.use(
     tempFileDir: "/tmp",
   })
 );
-app.use('/api/v1/user', userRouter);
-app.use('/api/v1/job', jobRouter);
-app.use('/api/v1/application', applicationRouter);
-app.use(ErrorMiddleware.errorMiddleware)
-const PORT = 4000;
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/application", applicationRouter);
+app.use(ErrorMiddleware.errorMiddleware);
+
+
+const PORT =  process.env.PORT ||4000;
 connect().then(() => {
   app.listen(PORT, () => {
     console.log(`server listening on ${PORT}`);

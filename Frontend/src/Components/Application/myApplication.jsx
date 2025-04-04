@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ResumeModal from "./ResumeModel";
 
 const MyApplications = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { user } = useContext(Context);
   const [applications, setApplications] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,12 +20,12 @@ const MyApplications = () => {
     const fetchData = async () => {
       try {
         if (user && user.role === "Employer") {
-          const res = await axios.get("http://localhost:4000/api/v1/application/employer/getall", {
+          const res = await axios.get(`${API_URL}/api/v1/application/employer/getall`, {
             withCredentials: true,
           });
           setApplications(res.data.applications);
         } else {
-          const res = await axios.get("http://localhost:4000/api/v1/application/JobSeeker/getall", {
+          const res = await axios.get(`${API_URL}/api/v1/application/JobSeeker/getall`, {
             withCredentials: true,
           });
           setApplications(res.data.applications);
@@ -44,7 +45,7 @@ const MyApplications = () => {
   const deleteApplication = (id) => {
     try {
       axios
-        .delete(`http://localhost:4000/api/v1/application/delete/${id}`, {
+        .delete(`${API_URL}/api/v1/application/delete/${id}`, {
           withCredentials: true,
         })
         .then((res) => {

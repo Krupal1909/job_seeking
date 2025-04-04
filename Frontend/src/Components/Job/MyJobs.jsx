@@ -9,6 +9,7 @@ import { Context } from "./../../main";
 import { useNavigate } from "react-router-dom";
 
 const MyJobs = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [myJobs, setMyJobs] = useState([]);
   const [editingMode, setEditingMode] = useState(null);
   const { isAuthorized, user } = useContext(Context);
@@ -19,7 +20,7 @@ const MyJobs = () => {
     const fetchJobs = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/job/getmyJobs",
+          `${API_URL}/api/v1/job/getmyJobs`,
           { withCredentials: true }
         );
         const { data } = response;
@@ -63,7 +64,7 @@ const MyJobs = () => {
     const updatedJob = myJobs.find((job) => job._id === jobId);
     // const updatedJob = myJobs.find((job) => job.id === jobId); --> yaha pr job._id likha bhul gaye the islye undefined aa rha tha
     await axios
-      .put(`http://localhost:4000/api/v1/job/update/${jobId}`, updatedJob, {
+      .put(`${API_URL}/api/v1/job/update/${jobId}`, updatedJob, {
         withCredentials: true,
       })
       .then((res) => {
@@ -75,7 +76,7 @@ const MyJobs = () => {
 
   const handleDeleteJob = async (jobId) => {
     await axios
-      .delete(`http://localhost:4000/api/v1/job/delete/${jobId}`, {
+      .delete(`${API_URL}/api/v1/job/delete/${jobId}`, {
         withCredentials: true,
       })
       .then((res) => {

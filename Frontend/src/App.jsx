@@ -20,12 +20,13 @@ import axios from "axios";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
   useEffect(() => {
     const fetchUser = async () => {
-      try {
+      try { 
         const response = await axios.get(
-          "http://localhost:4000/api/v1/user/getuser",
+          `${API_URL}/api/v1/user/getuser`,
           { withCredentials: true }
         );
         setUser(response.data.user);

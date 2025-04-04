@@ -6,6 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const Application = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [coverLetter, setCoverLetter] = useState("");
@@ -37,7 +38,7 @@ const Application = () => {
     try {
       const { data } = await axios.post(
         
-        "http://localhost:4000/api/v1/application/post",
+        `${API_URL}/api/v1/application/post`,
         formData,
         {
           withCredentials: true,

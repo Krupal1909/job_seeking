@@ -7,6 +7,7 @@ import  axios  from "axios";
 import { Context } from './../../main';
 
 const Jobs = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [jobs, setJobs] = useState([]);
   const { isAuthorized } = useContext(Context);
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Jobs = () => {
   useEffect(() => {
     try {
       axios
-        .get("http://localhost:4000/api/v1/job/getall", {
+        .get(`${API_URL}/api/v1/job/getall`, {
           withCredentials: true,
         })
         .then((res) => {
